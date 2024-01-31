@@ -29,4 +29,12 @@ export default class UpdateProductDTO implements Partial<ProductEntityDTO> {
   @IsArray()
   @IsUUID()
   type: ProductTypeDTO;
+
+  @Type(() => String)
+  @IsOptional()
+  product_image: string;
+
+  @Type(() => String)
+  @IsOptional()
+  product_image_name: string;
 }

@@ -80,6 +80,10 @@ export class ProductDataService {
     existingProduct.name = productData.name;
     existingProduct.price = productData.price;
 
+    if (productData.product_image) {
+      existingProduct.product_image = productData.product_image;
+    }
+
     if (productData.location) {
       const location = await this.productLocationRepo.findOne({
         where: {

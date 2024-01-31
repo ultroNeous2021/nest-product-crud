@@ -16,6 +16,7 @@ import CreateProductDTO from './dto/createProduct.dto';
 import ProductEntity from './product_data/product_data.entity';
 import UpdateProductDTO from './dto/updateProduct.dto';
 import { storage } from '../utils/helper';
+import { unlink } from 'fs';
 
 @Controller('/product')
 export class ProductController {
@@ -60,9 +61,11 @@ export class ProductController {
   }
 
   @Put('/:id')
+  @UseInterceptors(FileInterceptor('product_image', { storage }))
   async updatedProduct(
     @Param('id') id: string,
     @Body() data: UpdateProductDTO,
+    @UploadedFile() productImage: Express.Multer.File,
   ) {
     const productData = await this.productService.getOneProduct(id);
 
@@ -71,7 +74,23 @@ export class ProductController {
     }
 
     const product = new ProductEntity();
+
+    console.log({ productImage });
+
+    if (productImage && productImage.filename) {
+      data.product_image = productImage.filename;
+    }
+
+    if (data.product_image_name) {
+      await unlink(`uploads/${data.product_image_name}`, (err) => {
+        if (err) {
+          throw new Error(err.message);
+        }
+      });
+    }
+
     Object.assign(product, data);
+
     await this.productService.UpdateProduct(id, product);
     return { message: 'Product successfully updated', id };
   }
@@ -85,6 +104,12 @@ export class ProductController {
     }
 
     await this.productService.deleteProduct(id);
+    await unlink(`uploads/${productData.product_image}`, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+
     return { message: 'Product successfully deleted', id };
   }
 }
