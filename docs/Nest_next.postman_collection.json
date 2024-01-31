@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "9d64c7d2-8c9d-424c-9e61-048c229cf7ba",
+		"name": "Nest_next",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32104330",
+		"_collection_link": "https://dark-flare-134581.postman.co/workspace/UltroChat-WorkSpace~050cc468-81fa-47e4-b0b0-270a6cc36891/collection/32104330-9d64c7d2-8c9d-424c-9e61-048c229cf7ba?action=share&source=collection_link&creator=32104330"
+	},
+	"item": [
+		{
+			"name": "get all Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all Product type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product-type",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product-type"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product-location",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product-location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "seed location data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product-location/seed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product-location",
+						"seed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "seed product type data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product-type/seed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product-type",
+						"seed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(pm.response.to.have.status(201)){\r",
+							"    const productData = pm.response.json();\r",
+							"    pm.collectionVariables.set('PRODUCT_ID', productData.data.id)\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "laptop Stand",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1200",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "ec896311-ca7a-4be5-9c86-0078f0a2afae",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "0ecf1906-3239-4857-8f28-8865192ad464",
+							"type": "text"
+						},
+						{
+							"key": "product_image",
+							"type": "file",
+							"src": "postman-cloud:///1eebb68d-3a67-4b00-ab29-17749fbbd532"
+						},
+						{
+							"key": "quantity",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get One Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product/{{PRODUCT_ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"{{PRODUCT_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"laptop Stand\",\r\n    \"price\": 1200,\r\n    \"type\": \"6f20635d-9c01-4172-8875-6cba86d45c2e\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/{{PRODUCT_ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"{{PRODUCT_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete One Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product/{{PRODUCT_ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"{{PRODUCT_ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PRODUCT_ID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
